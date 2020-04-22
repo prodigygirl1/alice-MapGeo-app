@@ -40,17 +40,17 @@ def handle_dialog(res, req):
             'Привет! Я могу сказать в какой стране город или сказать расстояние между городами!'
 
         return
-    print('TYTA')
+
     cities = get_cities(req)
-    print('TYTA 1111')
+
     if len(cities) == 0:
 
         res['response']['text'] = 'Ты не написал название не одного города!'
 
     elif len(cities) == 1:
-
+        print('TYTA 1111')
         res['response']['text'] = 'Этот город в стране - ' + get_country(cities[0])
-
+        print('TYTA 2222')
     elif len(cities) == 2:
 
         distance = get_distance(get_coordinates(cities[0]), get_coordinates(cities[1]))
