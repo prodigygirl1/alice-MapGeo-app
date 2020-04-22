@@ -1,4 +1,5 @@
 from flask import Flask, request
+import os
 import logging
 import json
 from geo import get_country, get_distance, get_coordinates
@@ -75,4 +76,5 @@ def get_cities(req):
 
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
