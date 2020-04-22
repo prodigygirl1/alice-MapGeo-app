@@ -27,10 +27,10 @@ def get_country(city):
         'geocode': city,
         'format': 'json'
     }
-
+    print(1111)
     response = requests.get(url, params)
     json = response.json()
-
+    print(2222)
     return json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['AddressDetails']['Country']['CountryName']
 
 
