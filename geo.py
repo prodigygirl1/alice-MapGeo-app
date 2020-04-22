@@ -8,6 +8,7 @@ def get_coordinates(city):
 
     params = {
         'geocode': city,
+        'apikey': '40d1649f-0493-4b70-98ba-98533de7710b',
         'format': 'json'
     }
 
@@ -25,12 +26,12 @@ def get_country(city):
 
     params = {
         'geocode': city,
+        'apikey': '40d1649f-0493-4b70-98ba-98533de7710b',
         'format': 'json'
     }
-    print(1111)
+
     response = requests.get(url, params)
     json = response.json()
-    print(2222)
     return json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['AddressDetails']['Country']['CountryName']
 
 
