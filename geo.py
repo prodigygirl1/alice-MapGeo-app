@@ -53,3 +53,24 @@ def get_distance(p1, p2):
     distance = R * c
 
     return distance
+
+
+def get_geo_info(city_name, type_info):
+
+    url = "https://geocode-maps.yandex.ru/1.x/"
+    params = {
+        'geocode': city_name,
+        'apikey': '40d1649f-0493-4b70-98ba-98533de7710b',
+        'format': 'json'
+    }
+
+    response = requests.get(url, params)
+    json = response.json()
+    if type_info == 'coordinates':
+        point_str = \
+        json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['Point']['pos']
+        point_array = [float(x) for x in point_str.split(' ')]
+        return point_array
+
+    elif type_info == 'country':
+        return json['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['AddressDetails']['Country']['CountryName']
