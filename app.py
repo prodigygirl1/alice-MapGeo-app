@@ -52,8 +52,6 @@ def handle_dialog(res, req):
             res['response']['text'] = 'Не расслышала имя. Повтори, пожалуйста!'
         else:
             sessionStorage[user_id]['first_name'] = first_name
-            # создаём пустой массив, в который будем записывать города, которые пользователь уже отгадал
-            sessionStorage[user_id]['guessed_cities'] = []
             # как видно из предыдущего навыка, сюда мы попали, потому что пользователь написал своем имя.
             # Предлагаем ему сыграть и два варианта ответа "Да" и "Нет".
             res['response'][
@@ -70,23 +68,23 @@ def handle_dialog(res, req):
             ]
     else:
         cities = get_cities(req)
-
+        name = sessionStorage[user_id]['first_name'].title()
         if len(cities) == 0:
 
-            res['response']['text'] = 'Ты не написал название не одного города!'
+            res['response']['text'] = f'{name}, ты не написал название не одного города!'
 
         elif len(cities) == 1:
-            res['response']['text'] = 'Этот город в стране - ' + get_geo_info(cities[0], 'country')
+            res['response']['text'] = f'{name}, этот город в стране - ' + get_geo_info(cities[0], 'country')
         elif len(cities) == 2:
 
             distance = get_distance(get_geo_info(cities[0], 'coordinates'),
                                     get_geo_info(cities[1], 'coordinates'))
-            res['response']['text'] = 'Расстояние между этими городами: ' + str(
+            res['response']['text'] = f'{name}, расстояние между этими городами: ' + str(
                 round(distance)) + ' км.'
 
         else:
 
-            res['response']['text'] = 'Слишком много городов!'
+            res['response']['text'] = f'{name}, слишком много городов!'
 
 
 def get_cities(req):
