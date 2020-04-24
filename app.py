@@ -37,8 +37,7 @@ def handle_dialog(res, req):
     user_id = req['session']['user_id']
 
     if req['session']['new']:
-        res['response']['text'] = 'Привет! Я могу сказать в какой стране город или сказать ' \
-                                  'расстояние между городами. Назови своё имя!'
+        res['response']['text'] = 'Привет! Назови своё имя!'
         sessionStorage[user_id] = {
             'first_name': None,  # здесь будет храниться имя
             'game_started': False
@@ -55,17 +54,9 @@ def handle_dialog(res, req):
             # как видно из предыдущего навыка, сюда мы попали, потому что пользователь написал своем имя.
             # Предлагаем ему сыграть и два варианта ответа "Да" и "Нет".
             res['response'][
-                'text'] = f'Приятно познакомиться, {first_name.title()}. Я Алиса. Отгадаешь город по фото?'
-            res['response']['buttons'] = [
-                {
-                    'title': 'Да',
-                    'hide': True
-                },
-                {
-                    'title': 'Нет',
-                    'hide': True
-                }
-            ]
+                'text'] = f'Приятно познакомиться, {first_name.title()}. Я Алиса. Я могу сказать ' \
+                          f'в какой стране город или сказать расстояние между городами.'
+
     else:
         cities = get_cities(req)
         name = sessionStorage[user_id]['first_name'].title()
